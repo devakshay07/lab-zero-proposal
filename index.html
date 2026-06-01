@@ -819,6 +819,80 @@
   @media print {
     .section-page, .cover, .toc-page { page-break-after: always; }
   }
+
+  /* ── DROPPING SOON BANNER ── */
+  .dropping-soon-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--orange) 100%);
+    color: var(--white);
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    z-index: 9999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.6s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .banner-text {
+    flex: 1;
+  }
+
+  .banner-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 4px;
+  }
+
+  .banner-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .banner-action {
+    padding: 12px 28px;
+    background: var(--white);
+    color: var(--teal);
+    border: none;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .banner-action:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  @media print {
+    .dropping-soon-banner { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -1426,6 +1500,15 @@
       May 2025
     </div>
   </div>
+</div>
+
+<!-- ══════════════════════════════════ DROPPING SOON BANNER ══════════════════ -->
+<div class="dropping-soon-banner">
+  <div class="banner-text">
+    <div class="banner-label">🚀 Coming Soon</div>
+    <div class="banner-title">Lab Zero is DROPPING SOON</div>
+  </div>
+  <button class="banner-action">Get Updates</button>
 </div>
 
 </body>

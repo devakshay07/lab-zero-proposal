@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAB ZERO — Official Proposal · CGIT Jagdalpur · 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --bg: #fffdf7;
+    --yellow: #f5c800;
+    --orange: #ff6b2b;
+    --teal: #00a896;
+    --purple: #7b5ea7;
+    --red: #e63946;
+    --light: #f0ede4;
+    --mid: #c8c4b8;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    background: var(--ink);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: var(--yellow);
+    opacity: 0.12;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--orange);
+    opacity: 0.10;
+  }
+
+  .cover-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative; z-index: 1;
+  }
+
+  .cover-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    border: 1px solid #333;
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  .cover-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  .cover-hero {
+    position: relative; z-index: 1;
+    align-self: center;
+    padding: 60px 0 40px;
+  }
+
+  .cover-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .lab-zero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(72px, 12vw, 140px);
+    font-weight: 900;
+    line-height: 0.92;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .lab-zero-title span {
+    color: var(--yellow);
+  }
+
+  .cover-tagline {
+    margin-top: 28px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #a0a0a0;
+    max-width: 460px;
+    line-height: 1.7;
+  }
+
+  .cover-bottom {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding-top: 40px;
+    border-top: 1px solid #222;
+  }
+
+  .cover-meta-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .cover-meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: #ccc;
+  }
+
+  /* ── INDEX / TOC ── */
+  .toc-page {
+    min-height: 100vh;
+    background: var(--yellow);
+    padding: 64px 48px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .toc-page::before {
+    content: 'INDEX';
+    position: absolute;
+    right: -20px; top: 40px;
+    font-family: 'Fraunces', serif;
+    font-size: 180px;
+    font-weight: 900;
+    color: rgba(0,0,0,0.06);
+    letter-spacing: -0.04em;
+    pointer-events: none;
+  }
+
+  .toc-header {
+    position: relative; z-index: 1;
+  }
+
+  .toc-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .toc-header p {
+    font-size: 13px;
+    color: #555;
+    margin-top: 8px;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    position: relative; z-index: 1;
+    align-content: start;
+  }
+
+  .toc-item {
+    background: var(--ink);
+    color: var(--white);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .toc-item:hover { background: #222; }
+
+  .toc-num {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--yellow);
+    min-width: 40px;
+    line-height: 1;
+  }
+
+  .toc-text h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .toc-text p {
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* ── SECTION PAGES ── */
+  .section-page {
+    min-height: 100vh;
+    padding: 64px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-page.bg-white { background: var(--white); }
+  .section-page.bg-cream { background: var(--bg); }
+  .section-page.bg-light { background: var(--light); }
+  .section-page.bg-ink { background: var(--ink); color: var(--white); }
+  .section-page.bg-teal { background: var(--teal); color: var(--white); }
+  .section-page.bg-orange { background: var(--orange); color: var(--white); }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    opacity: 0.5;
+  }
+
+  .section-number {
+    font-family: 'Fraunces', serif;
+    font-size: 120px;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.08;
+    position: absolute;
+    top: 40px; right: 40px;
+    letter-spacing: -0.04em;
+  }
+
+  .section-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-bottom: 40px;
+    max-width: 520px;
+  }
+
+  /* ── IDEA SECTION ── */
+  .idea-quote {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 28px 32px;
+    margin: 32px 0;
+    position: relative;
+  }
+
+  .idea-quote::before {
+    content: '"';
+    font-family: 'Fraunces', serif;
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 0.6;
+    color: rgba(0,0,0,0.15);
+    position: absolute;
+    top: 16px; left: 20px;
+  }
+
+  .idea-quote p {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.6;
+    padding-left: 16px;
+  }
+
+  .idea-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .idea-card {
+    border: 2px solid var(--light);
+    padding: 24px;
+    border-radius: 4px;
+  }
+
+  .idea-card .dept {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--orange);
+  }
+
+  .idea-card p {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* ── ZONES ── */
+  .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .zone-card {
+    padding: 28px 20px;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .zone-card.z-a { background: var(--yellow); color: var(--ink); }
+  .zone-card.z-b { background: var(--orange); color: var(--white); }
+  .zone-card.z-c { background: var(--teal); color: var(--white); }
+  .zone-card.z-d { background: var(--purple); color: var(--white); }
+  .zone-card.z-e { background: var(--ink); color: var(--white); }
+
+  .zone-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.25;
+    margin-bottom: 8px;
+  }
+
+  .zone-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .zone-items {
+    list-style: none;
+    margin-top: auto;
+  }
+
+  .zone-items li {
+    font-size: 11px;
+    opacity: 0.85;
+    padding: 4px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    line-height: 1.4;
+  }
+
+  .zone-card.z-a .zone-items li { border-color: rgba(0,0,0,0.12); }
+
+  /* ── MEMBERSHIP TIERS ── */
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .tier-card {
+    background: var(--light);
+    padding: 28px 20px;
+    position: relative;
+  }
+
+  .tier-card:nth-child(1) { border-top: 4px solid var(--mid); }
+  .tier-card:nth-child(2) { border-top: 4px solid var(--teal); }
+  .tier-card:nth-child(3) { border-top: 4px solid var(--orange); }
+  .tier-card:nth-child(4) { border-top: 4px solid var(--yellow); }
+
+  .tier-num {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--ink);
+    opacity: 0.15;
+    line-height: 1;
+  }
+
+  .tier-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 8px 0 4px;
+    color: var(--ink);
+  }
+
+  .tier-req {
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .tier-access {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--orange);
+  }
+
+  /* ── GOALS ── */
+  .goals-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .goal-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px;
+    background: var(--light);
+  }
+
+  .goal-num {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+    min-width: 36px;
+  }
+
+  .goal-content h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .goal-content p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ── FUNDING ── */
+  .funding-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .funding-card {
+    background: var(--light);
+    padding: 24px 20px;
+    border-bottom: 3px solid transparent;
+    position: relative;
+  }
+
+  .funding-card.f1 { border-color: var(--orange); }
+  .funding-card.f2 { border-color: var(--teal); }
+  .funding-card.f3 { border-color: var(--purple); }
+  .funding-card.f4 { border-color: var(--yellow); }
+  .funding-card.f5 { border-color: var(--red); }
+  .funding-card.f6 { border-color: var(--ink); }
+
+  .funding-amount {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .funding-name {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .funding-note {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .funding-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    border: 1px solid #ddd;
+    padding: 3px 8px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  .funding-disclaimer {
+    background: #f0ede4;
+    border-left: 3px solid var(--orange);
+    padding: 16px 20px;
+    margin-top: 28px;
+    font-size: 11px;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  /* ── GOVERNANCE ── */
+  .gov-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .gov-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .gov-icon {
+    width: 36px; height: 36px;
+    background: var(--yellow);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .gov-content h4 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .gov-content p {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* ── BENEFITS ── */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .benefit-card {
+    background: var(--white);
+    padding: 22px 18px;
+    border-top: 3px solid var(--orange);
+  }
+
+  .benefit-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .benefit-card h4 {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .benefit-card p {
+    font-size: 10px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* ── ROADMAP ── */
+  .roadmap-track {
+    margin-top: 40px;
+    position: relative;
+    padding-left: 48px;
+  }
+
+  .roadmap-track::before {
+    content: '';
+    position: absolute;
+    left: 16px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--light);
+  }
+
+  .roadmap-item {
+    position: relative;
+    padding: 0 0 36px 0;
+  }
+
+  .roadmap-item::before {
+    content: '';
+    position: absolute;
+    left: -40px;
+    top: 4px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 2px solid var(--ink);
+  }
+
+  .roadmap-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .roadmap-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .roadmap-item p {
+    font-size: 12px;
+    color: #666;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .outcome-card {
+    padding: 32px 24px;
+  }
+
+  .outcome-card:nth-child(1) { background: var(--yellow); }
+  .outcome-card:nth-child(2) { background: var(--orange); color: var(--white); }
+  .outcome-card:nth-child(3) { background: var(--teal); color: var(--white); }
+  .outcome-card:nth-child(4) { background: var(--ink); color: var(--white); }
+  .outcome-card:nth-child(5) { background: var(--purple); color: var(--white); }
+  .outcome-card:nth-child(6) { background: var(--light); }
+
+  .outcome-value {
+    font-family: 'Fraunces', serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .outcome-label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .outcome-note {
+    font-size: 11px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* ── CLOSING / REQUEST ── */
+  .request-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    margin-top: 40px;
+  }
+
+  .request-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 28px 24px;
+  }
+
+  .request-num {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--yellow);
+    opacity: 0.5;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .request-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .request-card p {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.6;
+  }
+
+  .closing-statement {
+    background: var(--yellow);
+    color: var(--ink);
+    padding: 32px;
+    margin-top: 40px;
+  }
+
+  .closing-statement p {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .sign-block {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid #333;
+    padding-top: 24px;
+  }
+
+  .sign-block .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--yellow);
+  }
+
+  .sign-block .details {
+    font-size: 11px;
+    color: #666;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── PAGE DIVIDER ── */
+  .page-break {
+    height: 2px;
+    background: var(--yellow);
+    margin: 0;
+  }
+
+  /* ── UTILITY ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 32px;
+  }
+
+  .col-body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.75;
+  }
+
+  .col-body p + p { margin-top: 12px; }
+
+  .highlight-pill {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+
+  @media print {
+    .section-page, .cover, .toc-page { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════ COVER ══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-tag">Official Proposal · 2025</span>
+    <span class="cover-badge">CGIT Jagdalpur · Chhattisgarh</span>
+  </div>
+
+  <div class="cover-hero">
+    <div class="cover-eyebrow">Proposed by CS AI&ML &amp; Robotics AI · Batch 2025–29</div>
+    <div class="lab-zero-title">LAB<br><span>ZERO</span></div>
+    <p class="cover-tagline">A faculty-supervised, student-led innovation space where ideas from every department come to life — together.</p>
+  </div>
+
+  <div class="cover-bottom">
+    <div>
+      <div class="cover-meta-label">Institution</div>
+      <div class="cover-meta-value">CGIT Jagdalpur</div>
+    </div>
+    <div>
+      <div class="cover-meta-label">Batch</div>
+      <div class="cover-meta-value">2025 – 2029</div>
+    </div>
+    <div>
+      <div class="cover-meta-label">Date</div>
+      <div class="cover-meta-value">May 2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ INDEX ══════════════════════════════════ -->
+<div class="toc-page">
+  <div class="toc-header">
+    <h2>Table of Contents</h2>
+    <p>Nine sections — one clear vision for CGIT's innovation future.</p>
+  </div>
+
+  <div class="toc-grid">
+    <a class="toc-item" href="#idea">
+      <span class="toc-num">01</span>
+      <div class="toc-text">
+        <h4>The Idea</h4>
+        <p>Why Lab Zero must exist at CGIT</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#zones">
+      <span class="toc-num">02</span>
+      <div class="toc-text">
+        <h4>Five Innovation Zones</h4>
+        <p>What's inside the space</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#membership">
+      <span class="toc-num">03</span>
+      <div class="toc-text">
+        <h4>Membership &amp; Access</h4>
+        <p>Open to the deserving</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#goals">
+      <span class="toc-num">04</span>
+      <div class="toc-text">
+        <h4>Goals</h4>
+        <p>What we are working toward</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#governance">
+      <span class="toc-num">05</span>
+      <div class="toc-text">
+        <h4>Governance, Safety &amp; Compliance</h4>
+        <p>Structure, supervision &amp; policy</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#benefits">
+      <span class="toc-num">06</span>
+      <div class="toc-text">
+        <h4>Benefits to Institution</h4>
+        <p>NAAC, IQAC, AICTE &amp; beyond</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#funding">
+      <span class="toc-num">07</span>
+      <div class="toc-text">
+        <h4>Funding Avenues</h4>
+        <p>Potential grants &amp; opportunities</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#roadmap">
+      <span class="toc-num">08</span>
+      <div class="toc-text">
+        <h4>Roadmap</h4>
+        <p>From permission to permanent</p>
+      </div>
+    </a>
+    <a class="toc-item" href="#request">
+      <span class="toc-num">09</span>
+      <div class="toc-text">
+        <h4>Our Request</h4>
+        <p>Four simple asks</p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 01 — IDEA ══════════════════════════════ -->
+<div id="idea" class="section-page bg-cream">
+  <div class="section-number">01</div>
+  <div class="section-label">Section 01</div>
+
+  <h2 class="section-heading">The Idea</h2>
+  <p class="section-sub">Why does Lab Zero need to exist at CGIT?</p>
+
+  <div class="two-col">
+    <div class="col-body">
+      <p>Right now, a CS student with an idea for a robot has nowhere to build it. A Mechanical student who wants to write code has no machine to try it on. An ECE student ready to present a project has no proper setup to show it.</p>
+      <p>Every department works in its own bubble. Students have drive and curiosity — but not the shared space, tools, or community of peers from other fields who could push them further.</p>
+      <p>Lab Zero changes that. It is the first open, cross-department innovation space at CGIT — purpose-built for collaboration, experimentation, and building things that matter.</p>
+      <p>As the founding batch of CS AI&ML and Robotics &amp; AI at CGIT, we hold a meaningful opportunity and responsibility to create something that every batch after us can grow within. Lab Zero is that foundation.</p>
+    </div>
+    <div>
+      <div class="idea-quote">
+        <p>Lab Zero is not just a room with equipment. It is the first open, cross-department innovation space at CGIT — where a Mechanical student, a CS student, and an ECE student can sit at the same table and build something none of them could alone.</p>
+      </div>
+      <div class="idea-cards" style="grid-template-columns:1fr 1fr; gap:12px; margin-top:16px;">
+        <div class="idea-card">
+          <div class="dept">Problem</div>
+          <p>Departments work in isolation. Cross-discipline projects rarely happen due to lack of space.</p>
+        </div>
+        <div class="idea-card">
+          <div class="dept">Solution</div>
+          <p>One shared, supervised space with the tools and culture to make collaboration the default.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 02 — ZONES ════════════════════════════ -->
+<div id="zones" class="section-page bg-white">
+  <div class="section-number">02</div>
+  <div class="section-label">Section 02</div>
+
+  <h2 class="section-heading">Five Innovation Zones</h2>
+  <p class="section-sub">One shared open room — five areas of focused activity. Students naturally cross over, collaborate, and learn from each other.</p>
+
+  <div class="zones-grid">
+    <div class="zone-card z-a">
+      <div class="zone-letter">A</div>
+      <div class="zone-title">Digital &amp; Computing</div>
+      <ul class="zone-items">
+        <li>High-performance workstations</li>
+        <li>Raspberry Pi &amp; Arduino kits</li>
+        <li>Open-source dev environment</li>
+        <li>AI/ML project compute</li>
+      </ul>
+    </div>
+    <div class="zone-card z-b">
+      <div class="zone-letter">B</div>
+      <div class="zone-title">Electronics &amp; Embedded</div>
+      <ul class="zone-items">
+        <li>Soldering stations</li>
+        <li>ESP32, STM32, Arduino stock</li>
+        <li>Oscilloscopes &amp; multimeters</li>
+        <li>Sensors &amp; component library</li>
+      </ul>
+    </div>
+    <div class="zone-card z-c">
+      <div class="zone-letter">C</div>
+      <div class="zone-title">Mechanical &amp; Making</div>
+      <ul class="zone-items">
+        <li>3D printer</li>
+        <li>Power &amp; hand tools</li>
+        <li>Drill press</li>
+        <li>Prototyping materials</li>
+      </ul>
+    </div>
+    <div class="zone-card z-d">
+      <div class="zone-letter">D</div>
+      <div class="zone-title">Presentation &amp; Ideas</div>
+      <ul class="zone-items">
+        <li>Smart projector</li>
+        <li>Speaker setup</li>
+        <li>Whiteboard walls</li>
+        <li>Flexible open seating</li>
+      </ul>
+    </div>
+    <div class="zone-card z-e">
+      <div class="zone-letter">E</div>
+      <div class="zone-title">Server &amp; Infrastructure Learning</div>
+      <ul class="zone-items">
+        <li>Raspberry Pi cluster</li>
+        <li>Local project storage (NAS)</li>
+        <li>Practice networking node</li>
+        <li>Controlled edu. internet access</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="font-size:11px; color:#999; margin-top:20px; line-height:1.6;">Zone E operates on a dedicated VLAN configured and approved by the college IT administration. All student activities within this zone are isolated from the main campus network and conducted under faculty supervision in accordance with college IT policies.</p>
+</div>
+
+<!-- ══════════════════════════════════ 03 — MEMBERSHIP ══════════════════════ -->
+<div id="membership" class="section-page bg-light">
+  <div class="section-number">03</div>
+  <div class="section-label">Section 03</div>
+
+  <h2 class="section-heading">Membership &amp; Access</h2>
+  <p class="section-sub">Open across all departments. A structured tier system maintains quality and gives every student a clear path forward — all under faculty supervision.</p>
+
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <div class="tier-num">01</div>
+      <div class="tier-name">Observer</div>
+      <div class="tier-req">Visit, attend demos and workshops. Open to any CGIT student with no prerequisites.</div>
+      <div class="tier-access">Walk-in access</div>
+    </div>
+    <div class="tier-card">
+      <div class="tier-num">02</div>
+      <div class="tier-name">Member</div>
+      <div class="tier-req">Use equipment under direct faculty supervision. Requires completion of one documented mini project.</div>
+      <div class="tier-access">Supervised equipment use</div>
+    </div>
+    <div class="tier-card">
+      <div class="tier-num">03</div>
+      <div class="tier-name">Core Member</div>
+      <div class="tier-req">Extended supervised access as permitted by the faculty advisor. Requires a peer-reviewed, documented project.</div>
+      <div class="tier-access">Extended supervised access</div>
+    </div>
+    <div class="tier-card">
+      <div class="tier-num">04</div>
+      <div class="tier-name">Maintainer</div>
+      <div class="tier-req">Manages a zone, trains incoming members, and liaises with the faculty advisor. The lab's operational backbone.</div>
+      <div class="tier-access">Zone responsibility</div>
+    </div>
+  </div>
+
+  <div style="background:var(--white); border-left:3px solid var(--teal); padding:16px 20px; margin-top:28px; font-size:12px; color:#555; line-height:1.7;">
+    <strong>Access Control:</strong> All tier advancements require faculty advisor approval. Equipment usage is logged. Safety training is mandatory before any hands-on activity. A signed code of conduct is required for Tier 2 and above.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 04 — GOALS ════════════════════════════ -->
+<div id="goals" class="section-page bg-white">
+  <div class="section-number">04</div>
+  <div class="section-label">Section 04</div>
+
+  <h2 class="section-heading">Goals</h2>
+  <p class="section-sub">Six clear objectives that define Lab Zero's purpose and measure its success.</p>
+
+  <div class="goals-list">
+    <div class="goal-item">
+      <div class="goal-num">01</div>
+      <div class="goal-content">
+        <h4>Break Department Walls</h4>
+        <p>Create a shared space where students from CS, ECE, Mechanical, and other branches regularly meet, collaborate, and build interdisciplinary projects together.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">02</div>
+      <div class="goal-content">
+        <h4>Make Learning Hands-On</h4>
+        <p>Complement classroom theory with practical project experience — outcome-based learning that prepares students for industry realities.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">03</div>
+      <div class="goal-content">
+        <h4>Build a Culture of Innovation</h4>
+        <p>CGIT's new AI&ML and Robotics batches deserve an environment that nurtures ambition. Lab Zero establishes that culture from year one.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">04</div>
+      <div class="goal-content">
+        <h4>Strengthen CGIT's Reputation</h4>
+        <p>Participation in hackathons, networking projects, cybersecurity awareness activities, and published student work builds institutional visibility and academic standing.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">05</div>
+      <div class="goal-content">
+        <h4>Outlast the Founding Batch</h4>
+        <p>Built with documentation and a structured handover system so Lab Zero operates independently long after the founding batch graduates. Officially recognized from day one.</p>
+      </div>
+    </div>
+    <div class="goal-item">
+      <div class="goal-num">06</div>
+      <div class="goal-content">
+        <h4>Serve the Bastar Region</h4>
+        <p>Jagdalpur's development context is an asset. Lab Zero students can build locally relevant solutions — civic apps, rural connectivity tools, educational technology for schools.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 05 — GOVERNANCE ══════════════════════ -->
+<div id="governance" class="section-page bg-light">
+  <div class="section-number">05</div>
+  <div class="section-label">Section 05</div>
+
+  <h2 class="section-heading">Governance, Safety &amp; Compliance</h2>
+  <p class="section-sub">Lab Zero is designed to meet institutional, safety, and regulatory standards from day one — fully aligned with CGIT's administrative framework.</p>
+
+  <div class="gov-grid">
+    <div class="gov-item">
+      <div class="gov-icon">👨‍🏫</div>
+      <div class="gov-content">
+        <h4>Faculty Supervision Structure</h4>
+        <p>A designated Faculty Advisor oversees all Lab Zero operations with sign-off authority on equipment use, tier advancement, and project activities. Regular reviews with HOD.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">📋</div>
+      <div class="gov-content">
+        <h4>Equipment Usage Policy</h4>
+        <p>All equipment use is logged in a physical register. Tier 2+ members may use equipment only after completing safety training and signing the usage policy document.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">🦺</div>
+      <div class="gov-content">
+        <h4>Safety Training Requirements</h4>
+        <p>Mandatory safety orientation before any hands-on activity. Specific training required for tools, soldering equipment, and electrical components. Faculty-conducted annually.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">🔐</div>
+      <div class="gov-content">
+        <h4>Access Control Procedure</h4>
+        <p>Physical access only during designated lab hours. All entries logged. Faculty advisor must be reachable during all active sessions. After-hours access requires written approval.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">📦</div>
+      <div class="gov-content">
+        <h4>Asset Register Maintenance</h4>
+        <p>A formal asset register of all equipment, components, and donated materials is maintained, updated quarterly, and submitted to the HOD and accounts department.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">🌐</div>
+      <div class="gov-content">
+        <h4>IT Policy Compliance</h4>
+        <p>Zone E's dedicated VLAN is configured and maintained by the college IT administration. Student activities operate within isolated environments per college IT policy. No modification of main campus network.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">📜</div>
+      <div class="gov-content">
+        <h4>Code of Conduct</h4>
+        <p>All members sign a code of conduct covering responsible equipment use, academic integrity, respectful collaboration, and consequences for violations. Enforced by the Faculty Advisor.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">🚨</div>
+      <div class="gov-content">
+        <h4>Incident Reporting Mechanism</h4>
+        <p>Any equipment damage, safety concern, or policy breach is documented and reported to the Faculty Advisor and HOD within 24 hours via a standardized incident report form.</p>
+      </div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-icon">🔄</div>
+      <div class="gov-content">
+        <h4>Annual Review Process</h4>
+        <p>Lab Zero's constitution, membership records, project outcomes, asset register, and compliance status are reviewed annually by the Faculty Advisor and HOD with a written report to IQAC.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 06 — BENEFITS ════════════════════════ -->
+<div id="benefits" class="section-page bg-white">
+  <div class="section-number">06</div>
+  <div class="section-label">Section 06</div>
+
+  <h2 class="section-heading">Benefits to Institution</h2>
+  <p class="section-sub">Lab Zero directly advances CGIT's academic, accreditation, and institutional development objectives.</p>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <span class="benefit-icon">🏛️</span>
+      <h4>NAAC Objectives</h4>
+      <p>Supports Criterion III (Research &amp; Innovation) and Criterion V (Student Support) in NAAC assessment framework.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">📊</span>
+      <h4>IQAC Initiatives</h4>
+      <p>Provides documented, measurable outcomes for IQAC reports — projects, workshops, industry collaborations.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">⚙️</span>
+      <h4>AICTE Innovation Ecosystem</h4>
+      <p>Aligns with AICTE's IDEA Lab philosophy and positions CGIT for future scheme eligibility.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🎯</span>
+      <h4>Outcome-Based Education</h4>
+      <p>Hands-on project work directly supports OBE program outcomes and graduate attributes.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🔗</span>
+      <h4>Interdisciplinary Collaboration</h4>
+      <p>First structured cross-department student workspace — a differentiator for institutional rankings.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">💼</span>
+      <h4>Employability Enhancement</h4>
+      <p>Real project portfolios and practical skills improve graduate placement outcomes.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🚀</span>
+      <h4>Startup Culture</h4>
+      <p>Nurtures entrepreneurial thinking aligned with national initiatives like Startup India and AICTE Innovation Cell.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🏭</span>
+      <h4>Industry Readiness</h4>
+      <p>Hands-on experience with industry-relevant tools bridges the gap between academic learning and professional practice.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">🔬</span>
+      <h4>Research &amp; Project Culture</h4>
+      <p>Supports a pipeline of student research projects, paper submissions, and intellectual property development.</p>
+    </div>
+    <div class="benefit-card">
+      <span class="benefit-icon">📁</span>
+      <h4>Student Portfolio Development</h4>
+      <p>Every project built here becomes a verifiable portfolio piece for higher education and job applications.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 07 — FUNDING ══════════════════════════ -->
+<div id="funding" class="section-page bg-light">
+  <div class="section-number">07</div>
+  <div class="section-label">Section 07</div>
+
+  <h2 class="section-heading">Funding Avenues</h2>
+  <p class="section-sub">Lab Zero requires zero institutional budget to begin. Once operational outcomes are documented, several government, academic, CSR, and industry-supported funding opportunities may be explored.</p>
+
+  <div class="funding-grid">
+    <div class="funding-card f1">
+      <div class="funding-amount">~₹1 Cr</div>
+      <div class="funding-name">AICTE IDEA Lab Scheme</div>
+      <div class="funding-note">AICTE funds innovation labs for STEM hands-on learning. CGIT may be eligible subject to applicable scheme guidelines, institutional approvals, and funding criteria.</div>
+      <span class="funding-tag">aicte-india.org</span>
+    </div>
+    <div class="funding-card f2">
+      <div class="funding-amount">~₹30 L</div>
+      <div class="funding-name">AICTE Lab Development Scheme</div>
+      <div class="funding-note">A potential avenue for infrastructure, workshops, and computing facilities. Separate from IDEA Lab. Subject to scheme cycle and institutional eligibility.</div>
+      <span class="funding-tag">Institutional Development</span>
+    </div>
+    <div class="funding-card f3">
+      <div class="funding-amount">CSR</div>
+      <div class="funding-name">NMDC — Bastar Education</div>
+      <div class="funding-note">NMDC has an active Bastar education CSR focus. Outreach for innovation lab support may be explored in future phases, subject to NMDC CSR guidelines and approval.</div>
+      <span class="funding-tag">NMDC Limited</span>
+    </div>
+    <div class="funding-card f4">
+      <div class="funding-amount">60:40</div>
+      <div class="funding-name">RUSA 2.0 Infrastructure Grant</div>
+      <div class="funding-note">Centrally sponsored scheme for state colleges. Lab upgrades and computing may qualify. Chhattisgarh is an active RUSA participant. Subject to state and central approval.</div>
+      <span class="funding-tag">rusa.nic.in</span>
+    </div>
+    <div class="funding-card f5">
+      <div class="funding-amount">₹1 L</div>
+      <div class="funding-name">Smart India Hackathon Prize</div>
+      <div class="funding-note">SIH winners receive ₹1 lakh per team. Participating in SIH is a reachable early milestone that could partially seed lab resources.</div>
+      <span class="funding-tag">sih.gov.in · Annual</span>
+    </div>
+    <div class="funding-card f6">
+      <div class="funding-amount">Free</div>
+      <div class="funding-name">e-Yantra &amp; FOSSEE — IIT Bombay</div>
+      <div class="funding-note">Free robotics kits and hardware grants for NKN-connected colleges. CGIT's NKN membership makes this a viable early-stage avenue to pursue.</div>
+      <span class="funding-tag">e-yantra.org · fossee.in</span>
+    </div>
+  </div>
+
+  <div class="funding-disclaimer">
+    <strong>Note:</strong> All funding references above represent potential future opportunities to be explored in subsequent phases. Actual eligibility, amounts, and timelines are subject to applicable scheme guidelines, institutional approvals, and funding cycles. No financial commitment from the institution is required to initiate Lab Zero.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 08 — ROADMAP ══════════════════════════ -->
+<div id="roadmap" class="section-page bg-white">
+  <div class="section-number">08</div>
+  <div class="section-label">Section 08</div>
+
+  <h2 class="section-heading">Roadmap</h2>
+  <p class="section-sub">A phased plan — from permission to a permanently recognized institutional facility.</p>
+
+  <div class="roadmap-track">
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Week 1–2</div>
+      <h4>Phase 1 — Get Permission</h4>
+      <p>Submit proposal to HOD and Principal. Identify one faculty advisor. Identify a suitable unused room. Form a 5-member founding committee across departments. No budget required.</p>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Month 1</div>
+      <h4>Phase 2 — Soft Launch</h4>
+      <p>Set up with existing college equipment and founding members' own gear. Run the first open session. Begin documentation. Create the Lab Zero identity. First faculty advisor meeting.</p>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Month 2–3</div>
+      <h4>Phase 3 — First Projects</h4>
+      <p>First cross-department projects begin. Apply for e-Yantra kit. Request IT department approval for dedicated VLAN. Run first inter-department workshop. Document all outcomes for IQAC.</p>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-phase">Semester 2</div>
+      <h4>Phase 4 — Apply for Funding</h4>
+      <p>With a working lab and documented outcomes, explore AICTE IDEA Lab application. Initiate NMDC CSR outreach. Register SIH team. Outcomes report submitted to HOD and IQAC.</p>
+    </div>
+    <div class="roadmap-item" style="padding-bottom:0;">
+      <div class="roadmap-phase">Year 2</div>
+      <h4>Phase 5 — Official Recognition</h4>
+      <p>Lab Zero becomes a formally recognized institutional facility with budget, constitution, and annual intake. Founding batch transitions to mentor roles. Handover documentation complete.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ OUTCOMES ══════════════════════════════ -->
+<div class="section-page bg-light" style="padding-bottom:48px;">
+  <div class="section-label">Summary</div>
+  <h2 class="section-heading">What This Produces</h2>
+  <p class="section-sub">Tangible outcomes from a single permission.</p>
+
+  <div class="outcomes-grid">
+    <div class="outcome-card">
+      <div class="outcome-value">5+</div>
+      <div class="outcome-label">Departments Connected</div>
+      <div class="outcome-note">CS, ECE, Mechanical, Civil sharing one innovation space for the first time.</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">1st</div>
+      <div class="outcome-label">In the Bastar Region</div>
+      <div class="outcome-note">One of the first interdisciplinary student-led innovation spaces in the Bastar region.</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">₹0</div>
+      <div class="outcome-label">Budget to Start</div>
+      <div class="outcome-note">We begin with permission alone. Zero financial burden on the institution at launch.</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">Real</div>
+      <div class="outcome-label">Student Portfolios</div>
+      <div class="outcome-note">Every project built here is a verifiable portfolio piece for placements and higher studies.</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">2035+</div>
+      <div class="outcome-label">Batches After Us</div>
+      <div class="outcome-note">Designed to run long after the founding batch graduates, with full handover documentation.</div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-value">✓</div>
+      <div class="outcome-label">NAAC &amp; IQAC Aligned</div>
+      <div class="outcome-note">Documented outcomes contribute directly to NAAC Criteria III &amp; V and IQAC annual reporting.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 09 — REQUEST ══════════════════════════ -->
+<div id="request" class="section-page bg-ink">
+  <div class="section-number" style="color:#fff;">09</div>
+  <div class="section-label" style="color:#666;">Section 09</div>
+
+  <h2 class="section-heading" style="color:var(--white);">Our Request</h2>
+  <p class="section-sub" style="color:#888;">The institution's contribution is minimal. The potential impact is substantial. We are seeking four specific approvals.</p>
+
+  <div class="request-grid">
+    <div class="request-card">
+      <div class="request-num">01</div>
+      <h4>Official Permission</h4>
+      <p>Permission to establish Lab Zero as an officially recognized faculty-supervised, student-led body at CGIT Jagdalpur, operating under the academic purview of the HOD and Principal.</p>
+    </div>
+    <div class="request-card">
+      <div class="request-num">02</div>
+      <h4>A Room</h4>
+      <p>Allocation of one unused room or existing underutilized lab space for Lab Zero operations. No structural modifications are required at this stage.</p>
+    </div>
+    <div class="request-card">
+      <div class="request-num">03</div>
+      <h4>Faculty Advisor</h4>
+      <p>Appointment of one faculty member as Lab Advisor — a supervisory and sign-off role. Active involvement is welcomed but not required beyond oversight and periodic review.</p>
+    </div>
+    <div class="request-card">
+      <div class="request-num">04</div>
+      <h4>IT Department Approval — VLAN</h4>
+      <p>Permission for the IT department to configure a dedicated student VLAN on the existing campus network. All activity within this segment is isolated from the main college network and governed by IT policy.</p>
+    </div>
+  </div>
+
+  <div class="closing-statement">
+    <p>The institution is invited to provide a structured, supervised space for innovation. Lab Zero's founding team will handle the building — the college simply opens the door. This initiative represents a meaningful step in advancing CGIT's academic mission and the professional development of its students.</p>
+  </div>
+
+  <div class="sign-block">
+    <div class="brand">LAB ZERO</div>
+    <div class="details">
+      Proposed by CS AI&ML &amp; Robotics AI · Batch 2025–2029<br>
+      CGIT Jagdalpur, Chhattisgarh<br>
+      May 2025
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
